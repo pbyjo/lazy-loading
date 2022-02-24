@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Cabin";
+  background-color: #fff0f3;
+}
+
+main {
+  min-height: calc(100vh - 40px);
+  width: 100%;
+}
+
+h1 {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #bc4b51;
+}
+
+button {
+  margin: 0 5px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.04);
+}
+
+button:active {
+  transform: scale(0.8);
+}
+
+.display-flex-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerInfo {
+  margin-top: 40px;
+}
+.containerInfo > h2 {
+  margin: 10px 0 40px 0;
+}
+
+.imgLogo {
+  width: 100%;
+  max-width: 120px;
+}
+
+.img-fox {
+  max-width: 320px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.imageContainer {
+  width: max-content;
+  margin: 20px;
+  height: auto;
+  border-radius: 8px;
+  background-color: #f7cad0;
+}
+
+.buttonAdd,
+.buttonClear {
+  width: 120px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  padding: 10px;
+  color: #bc4b51;
+  background-color: #ffe45e;
+}
+
+.buttonClear {
+  background-color: rgba(102, 102, 102, 0.3);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/*# sourceMappingURL=main.css.map */
