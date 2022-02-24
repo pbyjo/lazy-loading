@@ -1,1 +1,1 @@
-export default "/_dist_/assets/foxIcon.png";
+export default "https://pbyjo.github.io/lazy-loading/_dist_/assets/foxIcon.png";
