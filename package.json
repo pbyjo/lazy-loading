@@ -1,4 +1,5 @@
 {
+  "homepage": "https://pbyjo.github.io/lazy-loading",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
