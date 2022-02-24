@@ -80,3 +80,106 @@ Your app is ready to be deployed!
 ### Q: What about Eject?
 
 No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
+
+### Workshop 2
+
+#### Segundo Proyecto (Lazy loading)
+
+Lazy loading o carga perezosa nos permite cargar los elementos a medida que se van mostrando en el viewModel con esto el contenido carga solo cuando el usuario lo pide en este caso haciendo scroll, ademas de ello se agrega un loading skeleton para mostrar un pre de que la imagen esta cargando en realidad.
+
+#### Nuestro propio plugin Lazy Loading
+
+instalamos template snowpack y hacemos el mismo proceso inicial que con el proyecto 1, basicamente necesitamos organizar y estructurar la maquetacion html de como se veran nuestros zorros.
+
+#### Creando las imagenes con JavaScript
+
+creamos una funcion que nos dos nodos, uno que contiene la imagen y otro para la imagen. En el nodo imageFox en su prop src le insertamos la url que nos da como promesa una imagen random de la api.
+
+``` js 
+const createImageNode = () => {
+    const imageFoxContainer = document.createElement('figure')
+    imageFoxContainer.className = 'imageContainer'
+    
+    const imageFox = document.createElement('img')
+    imageFox.className = 'img-fox'
+    imageFox.src = `https://randomfox.ca/images/${randomfox()}.jpg`
+    
+    imageFoxContainer.appendChild(imageFox)
+    
+    return imageFoxContainer
+}
+```
+
+Luego con una funcion del botton agregar instanciamos una nueva imagen por cada acción. 
+
+``` js 
+const addImageFunction = () => {
+    const newImage = createImageNode()
+    foxsSection.append(newImage)
+    return foxsSection
+}
+```
+
+#### Insertion Observer | web api
+
+Con el **IntersectionObserver** podemos decirle a JavaScript que observe un objeto cuando está dentro de la pantalla (o cuando sale de esta), en el curso Profesional de JavaScript se habla sobre esto, específicamente en la clase de Intersection Observer, les dejo el link por si quieren profundizar en ello:
+
+`https://platzi.com/clases/1642-javascript-profesional/22175-intersectionobserver/`
+
+`https://developer.mozilla.org/es/docs/Web/API/Intersection_Observer_API`
+
+**IntersectionObserver** observa todos los objetos por lo que es necesario filtrar solo lo que esta siendo interceptado `.filter(IsIntersecting)` para aplicar nuestro lazy loading.
+
+#### Aplicando Lazy Loading
+
+Aqui a nuestro observer le decimos que accion debe realizar al tener los objetos dentro del viewport, y como son imagenes estas deben cargar dentro de su respectivo contenedor al entrar en el viewport.
+
+``` js 
+    ...
+    entries
+        .filter(
+            (payload) => {
+                return payload.isIntersecting
+            }
+        )
+        .map(
+            (payload) => {
+                const imageFoxContainer = payload.target // figure
+                const imgg = imageFoxContainer.firstChild // identificamos la img
+                const url = imgg.dataset.src // data del atributo
+                //cargar img
+                imgg.src = url; // nuestra imagen
+                //unlisten
+                observer.unobserve(imageFoxContainer)
+            }
+        )
+    ...
+```
+
+los *atributos* `data-nameAttribure` sirven para definir **atributos personalizados** dentro de html, es decir, puedes inventarte atributos.
+
+``` html
+    <div
+        id="myDiv"
+        data-attribute="valor-del-atributo"
+    > 
+    </div>
+```
+
+La forma de acceder a estos elementos desde JavaScript es mediante la propiedad dataset, esta propiedad contiene la lista de todos los atributos personalizados que le pusiste a tu elemento:
+
+``` js 
+    const myAttribute = myDiv.dataset.attribute;
+```
+
+#### resultado
+
+Finalmente le damos funcionalidad al botón clear, agregamos un wrapper a la imagen que nos permita mostrar que esta cargando y un estado del log que nos cuente las imagenes agregadas mas las imagenes cargadas.
+
+``` js 
+function logState () {
+    console.log(`⚪️ Length Images: ${totalImages}`)
+    console.log(`🟣 Loaded Images: ${loadedImages}`)
+    console.log("---------------------------------")
+}
+```
